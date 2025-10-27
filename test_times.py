@@ -29,3 +29,11 @@ def test_touching_ranges_count_as_no_overlap():
     a = time_range("2020-01-01 10:00:00","2020-01-01 11:00:00")
     b = time_range("2020-01-01 11:00:00","2020-01-01 12:00:00")
     assert compute_overlap_time(a, b) == []
+
+
+import pytest
+from times import time_range
+
+def test_time_range_raises_on_backwards_times():
+    with pytest.raises(ValueError, match="end_time must be after start_time"):
+        time_range("2020-01-02 10:00:00", "2020-01-02 09:00:00")
